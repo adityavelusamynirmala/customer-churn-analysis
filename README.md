@@ -1,90 +1,101 @@
 # Customer Churn Analysis
 
-A portfolio analytics project exploring customer churn patterns for a fictional subscription business. The project uses SQL and Power BI to measure churn and compare churn rates across subscription plans, acquisition channels, tenure, login frequency, support tickets, late payments, and satisfaction scores.
+## Project Overview
 
-> **Dataset note:** This is a synthetic portfolio dataset, not real company or customer data.
+This project investigates customer churn for a subscription-based business using a synthetic customer dataset. The objective is to measure the overall churn rate, identify customer segments with higher churn, and highlight areas where retention strategies may need further investigation.
 
-## Repository structure
+The analysis uses SQL for data analysis and Power BI for interactive dashboards.
 
-```text
-Customer-Churn-Analysis/
-├── data/
-│   └── customers_raw.csv
-├── sql/
-│   └── customer_churn_analysis.sql
-├── powerbi/
-│   └── customer_churn_analysis.pbix
-├── docs/
-│   └── dashboard-screenshots/
-│       ├── executive_overview.png
-│       └── churn_driver_analysis.png
-└── README.md
-```
+> **Disclaimer:** This project uses synthetic data for portfolio and learning purposes. The findings do not represent the performance of a real company.
 
-## Business objective
+## Business Problem
 
-Understand the scale of customer churn and identify customer segments that show higher churn rates. The analysis is intended to help a subscription business prioritise retention investigations and customer-support improvements.
+A subscription-based business wants to understand why customers are leaving its service. The objective is to measure customer churn, compare churn across different customer segments, and identify behavioural and service-related patterns associated with customer churn.
 
-## Tools
+## Tools Used
 
-- **SQL (SQLite):** data standardisation, duplicate handling, aggregation, and segment-level churn analysis.
-- **Power BI:** KPI cards, slicers, and comparative charts.
-- **CSV:** source dataset.
+* **SQL (SQLite):** Aggregation, filtering, segmentation, and churn analysis.
+* **Power BI:** KPI cards, churn comparisons, customer segmentation, and interactive filters.
+* **Excel:** Data inspection and validation.
 
-## Key metrics
+## Key Findings
 
-| Metric | Result |
-|---|---:|
-| Total customers after deduplication and standardisation | 22,000 |
-| Churned customers | 3,720 |
-| Active customers | 18,280 |
-| Overall churn rate | 16.91% |
+Analysis of the customer dataset revealed the following patterns:
 
-## Key findings
+* Overall customer churn rate was approximately **16.91%**.
+* Customers on the Basic subscription plan had the highest churn rate at approximately **22.8%**.
+* Premium plan customers had the lowest churn rate at approximately **8.8%**.
+* Customers with 0–4 monthly logins had a churn rate of approximately **31.1%**.
+* Customers with 20 or more monthly logins had a churn rate of approximately **9.2%**.
+* Newer customers showed higher churn compared with customers who had longer tenure.
+* Churn patterns also varied across satisfaction scores, support ticket volumes, and late payment behaviour.
 
-- **Subscription plan:** Basic customers have the highest churn rate (22.79%), followed by Standard (12.96%) and Premium (8.84%).
-- **Login frequency:** Customers with 0–4 monthly logins have a 31.08% churn rate, compared with 9.17% among customers with 20+ logins.
-- **Tenure:** Customers in the 0–120 day tenure band have a 23.65% churn rate.
-- **Support tickets:** Churn is higher among customers with 3–5 support tickets in the previous 90 days (approximately 24.80%–28.74%).
-- **Late payments:** Churn is higher among customers with two or three late payments, but these groups are much smaller than the zero- and one-late-payment groups.
+These findings highlight customer segments associated with higher churn. They do not establish the underlying causes of customer departures.
 
-These are descriptive associations. They do not establish that a plan, login frequency, support ticket, or payment pattern causes churn. Smaller segment sizes should be considered before making business decisions.
+## Analysis Approach
+
+1. Inspected the customer dataset and reviewed its columns and structure.
+2. Used SQL to calculate total customers, churned customers, active customers, and overall churn rate.
+3. Compared churn rates across subscription plans and acquisition channels.
+4. Examined churn patterns based on customer tenure and monthly login frequency.
+5. Investigated relationships between churn, satisfaction scores, support tickets, and late payments.
+6. Built interactive Power BI dashboards to present the overall churn situation and explore potential churn drivers.
+7. Validated key metrics and findings against the dashboard.
 
 ## Dashboard
 
 ### Executive Overview
 
-The overview page presents total customers, churned customers, active customers, overall churn rate, churn by acquisition channel, customer distribution by plan, and churn rate by plan.
+This dashboard presents the main customer KPIs, including total customers, churned customers, active customers, and overall churn rate.
 
-![Executive Overview](docs/dashboard-screenshots/executive_overview.png)
+It also compares churn rates across subscription plans and acquisition channels, with interactive filters for customer segmentation.
 
 ### Churn Driver Analysis
 
-The analysis page compares churn rates by tenure, monthly login frequency, support-ticket count, satisfaction score, and late-payment count.
+This dashboard investigates customer churn across different behavioural and service-related dimensions, including:
 
-![Churn Driver Analysis](docs/dashboard-screenshots/churn_driver_analysis.png)
+* Customer tenure
+* Monthly login frequency
+* Satisfaction scores
+* Support ticket volume
+* Late payment behaviour
 
-## How to use the SQL
+The objective is to identify customer segments with higher churn rates and highlight opportunities for further investigation.
 
-1. Create or open a SQLite database.
-2. Import `data/customers_raw.csv` as a table named `customers_raw`.
-3. Open and run `sql/customer_churn_analysis.sql`.
-4. The script creates a temporary view that standardises plan and acquisition-channel labels, converts the monthly fee to a numeric value, normalises the churn flag, and keeps one row per customer ID.
-5. Run the analysis queries in the script to reproduce the KPI and segment comparisons.
+## Recommendations for Further Investigation
 
-The script uses SQLite syntax and window functions.
+1. Investigate the high churn rate among Basic plan customers by examining pricing, subscription benefits, and plan-related customer feedback.
+2. Examine engagement patterns among customers with low monthly login frequency and investigate opportunities to improve product engagement.
+3. Review the onboarding experience for newer customers to identify potential early-stage retention issues.
+4. Investigate whether frequent support tickets are associated with unresolved customer problems or service dissatisfaction.
+5. Examine late payment patterns and evaluate whether payment difficulties contribute to customer departures.
+6. Review customer satisfaction feedback to identify recurring issues among customers with lower satisfaction scores.
 
-## Data notes and limitations
+These are proposed investigation steps, not confirmed causes.
 
-- The raw CSV contains duplicate customer IDs and inconsistent text formatting; the SQL script addresses these for the analysis view.
-- Some satisfaction scores are missing, so satisfaction analysis excludes records without a score.
-- Signup dates are largely missing, so a reliable signup-month trend is not presented.
-- Very small groups (for example, customers with four or more late payments) should not be over-interpreted.
-- The Power BI report is included as a `.pbix` file. The dashboard screenshots are provided for quick preview.
+## Limitations
 
-## Files
+* The dataset is synthetic and may not reflect real-world customer behaviour.
+* Most signup date values are missing, limiting reliable time-based signup and churn trend analysis.
+* Churn comparisons identify associations between customer characteristics and churn but cannot establish causation.
+* Customer behaviour and subscription patterns may differ in real business environments.
+* The analysis is limited to the variables available in the supplied dataset.
 
-- `data/customers_raw.csv` — original raw dataset.
-- `sql/customer_churn_analysis.sql` — SQL cleaning view and churn analysis queries.
-- `powerbi/customer_churn_analysis.pbix` — Power BI report.
-- `docs/dashboard-screenshots/` — exported dashboard page screenshots.
+## Project Structure
+
+```text
+customer-churn-analysis/
+├── data/
+│   └── customers_raw.csv
+├── sql/
+│   └── customer_churn_analysis.sql
+├── docs/
+│   └── dashboard-screenshots/
+├── powerbi/
+│   └── customer_churn_analysis.pbix
+└── README.md
+```
+
+## Skills Demonstrated
+
+SQL analysis, customer churn analysis, KPI development, customer segmentation, behavioural analysis, retention analysis, data validation, Power BI dashboard development, and evidence-based business recommendations.
